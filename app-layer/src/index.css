@@ -51,6 +51,9 @@ main {
   max-width: 100%;
 }
 
+.img-thumbnail {
+  height: 80px;
+}
 /* header {
   background-color: #404040;
   padding: 1rem;
