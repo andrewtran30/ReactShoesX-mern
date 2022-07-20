@@ -7,10 +7,11 @@ import MessageBox from '../components/MessageBox';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 export default function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const navigate = Navigate();
   const {
     cart: { cartItems },
   } = state;
@@ -29,6 +30,10 @@ export default function CartScreen() {
   const removeItemHandler = (item) => {
     ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
+  const checkoutHandler = () => {
+    navigate('/signin?redirect=/shipping');
+  };
+
   return (
     <div>
       <Helmet>
@@ -106,6 +111,7 @@ export default function CartScreen() {
                     <Button
                       type="button"
                       variant="primary"
+                      onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
                     >
                       Proceed to Checkout
