@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const seedRouter = require('./routes/seedRoutes.js');
 const productRouter = require('./routes/productRoutes.js');
+const userRouter = require('./routes/userRoutes.js');
 
 dotenv.config(); //fetches variables from dotenv file
 mongoose
@@ -16,9 +17,17 @@ mongoose
   }); // mongoose = object that allows us to connect to mongodb; MONGODB_URI = link we put in .env file
 
 const app = express();
-app.use('/api/seed', seedRouter);
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/seed', seedRouter);
 app.use('/api/products', productRouter);
+app.use('/api/users', userRouter);
+
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
+});
 
 const port = process.env.PORT || 3001;
 
