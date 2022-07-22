@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { Container, Form, Button } from 'react-bootstrap';
-import { Axios } from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../components/utils';
+import axios from 'axios';
 
 export default function SigninScreen() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function SigninScreen() {
     e.preventDefault();
     try {
       // we are passing in email and password fields as a post request to the /api/users/signin API ---> extraciting data as the response
-      const { data } = await Axios.post('/api/users/signin', {
+      const { data } = await axios.post('/api/users/signin', {
         email,
         password,
       });
