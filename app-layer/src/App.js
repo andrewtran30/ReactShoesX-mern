@@ -15,6 +15,7 @@ import { Store } from './Store';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SignInScreen';
 import { NavDropdown } from 'react-bootstrap';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -23,6 +24,7 @@ function App() {
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAddress');
   };
 
   return (
@@ -77,6 +79,7 @@ function App() {
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/" element={<HomeScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
+              <Route path="/shipping" element={<ShippingAddressScreen />} />
             </Routes>
           </Container>
         </main>
