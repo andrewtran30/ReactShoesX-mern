@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const expressAsyncHandler = require('express-async-handler');
 const User = require('../models/userModel.js');
-const generateToken = require('../utils.js');
+const utils = require('../utils.js');
 
 const userRouter = express.Router();
 
@@ -17,7 +17,7 @@ userRouter.post(
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
-          token: generateToken(user),
+          token: utils.generateToken(user),
         });
         return;
       }
@@ -40,7 +40,7 @@ userRouter.post(
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      token: generateToken(user),
+      token: utils.generateToken(user),
     });
   })
 );
