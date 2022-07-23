@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const data = require('./data.js');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -30,6 +31,12 @@ app.use('/api/seed', seedRouter);
 app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
+
+const _dirname = path.resolve();
+app.use(express.static(path.join(_dirname, '/app-layer/build'))); // serves all folders in the app-layer as static files
+app.get('*', (req, res) => {
+  res.sendFile(path.join(_dirname, '/app-layer/build/index.html'));
+});
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
